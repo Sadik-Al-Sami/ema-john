@@ -1,0 +1,29 @@
+:root {
+    --primary-blue: #2a414f;
+    --secondary-blue: #1C2B35;
+    --tertiary-blue: #0e161a;
+    --quaterny-blue: #95A0A7;
+    --primary-accent: #ff9900;
+    --secondary-accent: #995c00;
+    --tertiary-accent: #4c2e00;
+    --primary-black: #000000;
+    --primary-white: #ffffff;
+}
+.header {
+    padding: 0 7rem;
+    height: 5rem;
+    background-color: var(--secondary-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header div a {
+    text-decoration: none;
+    color: white;
+    padding: 0 0.5rem;
+    font-size: 1rem;
+}
+.header div a:hover {
+    color: var(--primary-accent);
+    transition: all .2s ease-in-out;
+}
