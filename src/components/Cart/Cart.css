@@ -16,3 +16,14 @@
 .cart div {
     padding: 2rem 0;
 }
+
+.cart .btn-clear {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: 56px;
+    margin: 10px auto;
+    background-color: #ff3030;
+    border-radius: 4px;
+}
