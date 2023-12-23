@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './SignUp.css'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 const SignUp = () => {
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -10,17 +12,30 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
-        console.log(email,password, confirm);
+        console.log(email, password, confirm);
 
-        if(confirm !== password){
+        if (confirm !== password) {
             setError("Passwords dont match");
             return;
         }
-        else if(password.length < 6){
+        else if (password.length < 6) {
             setError("Password must be more than 6 characters long");
             return;
         }
         setError('');
+        createUser(email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setError(errorMessage);
+                // ..
+            });
+        form.reset();
     }
     return (
         <div className='form-container'>
