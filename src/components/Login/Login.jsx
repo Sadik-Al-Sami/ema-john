@@ -1,9 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 const Login = () => {
     const { signIn } = useContext(AuthContext);
+    const [show, setShow] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
+    const from = location.state?.from?.pathname || '/'
+
     const handleSignIn = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -15,6 +21,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log("signed in");
                 form.reset();
+                navigate(from, { replace: true });
                 // ...
             })
             .catch((error) => {
@@ -33,7 +40,12 @@ const Login = () => {
                 </div>
                 <div className="form-control">
                     <label htmlFor="password">password</label>
-                    <input type="password" name="password" required />
+                    <input type={show ? "text" : "password"} name="password" required />
+                    <p onClick={() => setShow(!show)}>
+                        {
+                            show ? <span>Hide Password</span> : <span>Show Password</span>
+                        }
+                    </p>
                 </div>
                 <input className='btn-submit' type="submit" value="Login" />
             </form>

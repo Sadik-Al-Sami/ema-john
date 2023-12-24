@@ -4,9 +4,14 @@ import logo from '../../images/Logo.svg'
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 const Header = () => {
-    const {signOut, user} = useContext(AuthContext);
+    const { logOut, user } = useContext(AuthContext);
     const handleLogOut = () => {
-        signOut
+        logOut()
+            .then(() => {
+                console.log("Signed out");
+            }).catch((error) => {
+                // An error happened.
+            });
     }
     return (
         <nav className='header'>
@@ -17,7 +22,7 @@ const Header = () => {
                 <NavLink to="/inventory">Inventory</NavLink>
                 <NavLink to="/login">Login</NavLink>
                 <NavLink to="/signup">SignUp</NavLink>
-                {user && <span>welcome {user.displayName} <button onClick={handleLogOut}>Sign Out</button> </span> }
+                {user && <span>welcome {user.email} <button onClick={handleLogOut}>Sign Out</button> </span>}
             </div>
         </nav>
     );
